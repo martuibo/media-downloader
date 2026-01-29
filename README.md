@@ -1,182 +1,158 @@
-# Media Downloader 🎵🎬
+**Media allalaadimise tööriist** 🎵🎬
 
-A simple, powerful Python CLI tool to download audio and video from SoundCloud, YouTube, and hundreds of other platforms.
+Lihtne, võimas Pythonil põhinev CLI-tööriist heli ja video allalaadimiseks SoundCloudist, YouTube’ist ja sadadelt teistelt platvormidelt.
 
-## Features
+**Funktsioonid**
 
-- 🎵 Download audio from URLs (SoundCloud, YouTube, etc.) as MP3, M4A, WAV, and more
-- 🎬 Download videos in best quality with automatic format merging
-- 📋 Get media information without downloading
-- 🎯 Simple command-line interface
-- 🌐 Supports 1000+ websites via yt-dlp
-- 📁 Organized output with customizable directories
+🎵 Laadi URL-idest heli (SoundCloud, YouTube jne) MP3, M4A, WAV ja teistes formaatides
 
-## Supported Platforms
+🎬 Laadi videod parima kvaliteediga koos automaatse formaatide liitmisega
 
-This tool supports any platform that yt-dlp supports, including:
-- SoundCloud
-- YouTube
-- Vimeo
-- Twitter/X
-- Instagram
-- TikTok
-- Facebook
-- And [hundreds more](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)
+📋 Vaata meedia infot ilma allalaadimata
 
-## Prerequisites
+🎯 Lihtne käsurea liides
 
-- Python 3.7 or higher
-- FFmpeg (for audio conversion)
+🌐 Toetab 1000+ veebisaiti läbi yt-dlp
 
-### Installing FFmpeg
+📁 Korrastatud väljund koos kohandatavate kaustadega
 
-**macOS:**
-```bash
+**Toetatud platvormid**
+See tööriist toetab kõiki platvorme, mida yt-dlp toetab, sh:
+
+SoundCloud
+YouTube
+Vimeo
+Twitter/X
+Instagram
+TikTok
+Facebook
+Ja sajad teised
+
+**Eeldused**
+
+Python 3.7 või uuem
+FFmpeg (helikonverteerimiseks)
+FFmpeg paigaldamine
+macOS:
 brew install ffmpeg
-```
 
-**Ubuntu/Debian:**
-```bash
-sudo apt update
-sudo apt install ffmpeg
-```
+Ubuntu/Debian:
+  sudo apt update
+  sudo apt install ffmpeg
 
-**Windows:**
-Download from [ffmpeg.org](https://ffmpeg.org/download.html) or use:
-```bash
-winget install FFmpeg
-```
 
-## Installation
+Windows:
+Laadi alla saidilt ffmpeg.org
+ või kasuta:
+              winget install FFmpeg
 
-1. Clone this repository:
-```bash
+**Paigaldamine**
+
+Klooni see repo:
 git clone https://github.com/yourusername/media-downloader.git
 cd media-downloader
-```
 
-2. Install dependencies:
-```bash
+
+Paigalda sõltuvused:
 pip install -r requirements.txt
-```
 
-## Usage
-
-### Download Audio (MP3)
-```bash
+Kasutamine
+Laadi heli (MP3)
 python src/downloader.py -a "https://soundcloud.com/artist/track"
-```
 
-### Download Video
-```bash
+Laadi video
 python src/downloader.py -v "https://youtube.com/watch?v=dQw4w9WgXcQ"
-```
 
-### Specify Output Directory
-```bash
+Määra väljundkaust
 python src/downloader.py -a "https://..." -o ./my_music
-```
 
-### Different Audio Format
-```bash
+Teine heliformaat
 python src/downloader.py -a "https://..." -f m4a
-```
 
-### Get Media Information
-```bash
+Vaata meedia infot
 python src/downloader.py -i "https://..."
-```
 
-## Command Line Options
-```
-positional arguments:
-  url                   URL to download from
+Käsurea valikud
+positsioonilised argumendid:
+  url                   URL, kust alla laadida
 
-options:
-  -h, --help            Show help message
-  -a, --audio           Download audio only (default: MP3)
-  -v, --video           Download video
-  -f, --format FORMAT   Audio format (mp3, m4a, wav, etc.) - default: mp3
-  -q, --quality QUALITY Video quality (best, worst) - default: best
-  -o, --output OUTPUT   Output directory - default: downloads
-  -i, --info            Get info about URL without downloading
-```
+valikud:
+  -h, --help            Näita abi
+  -a, --audio           Laadi ainult heli (vaikimisi: MP3)
+  -v, --video           Laadi video
+  -f, --format FORMAT   Heliformaat (mp3, m4a, wav jne) - vaikimisi: mp3
+  -q, --quality QUALITY Video kvaliteet (best, worst) - vaikimisi: best
+  -o, --output OUTPUT   Väljundkaust - vaikimisi: downloads
+  -i, --info            Näita URL-i infot ilma allalaadimata
 
-## Examples
-
-### Download SoundCloud track as MP3
-```bash
+Näited
+Laadi SoundCloudi lugu MP3-na
 python src/downloader.py -a "https://soundcloud.com/artist/amazing-track"
-```
 
-### Download YouTube video
-```bash
+Laadi YouTube’i video
 python src/downloader.py -v "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-```
 
-### Download to specific folder
-```bash
+Laadi kindlasse kausta
 python src/downloader.py -a "https://soundcloud.com/..." -o ~/Music/SoundCloud
-```
 
-### Download audio as WAV (high quality)
-```bash
+Laadi heli WAV-formaadis (kõrge kvaliteet)
 python src/downloader.py -a "https://..." -f wav
-```
 
-### Check video info before downloading
-```bash
+Kontrolli video infot enne allalaadimist
 python src/downloader.py -i "https://youtube.com/watch?v=..."
-```
 
-## Project Structure
-```
+Projekti struktuur
 media-downloader/
 ├── src/
-│   └── downloader.py      # Main CLI application
-├── tests/                 # Unit tests (optional)
-├── downloads/             # Default download directory (created automatically)
-├── requirements.txt       # Python dependencies
-├── README.md             # This file
-└── .gitignore           # Git ignore rules
-```
+│   └── downloader.py      # Peamine CLI rakendus
+├── tests/                 # Unit-testid (valikuline)
+├── downloads/             # Vaikimisi allalaadimiste kaust (luuakse automaatselt)
+├── requirements.txt       # Python sõltuvused
+├── README.md              # See fail
+└── .gitignore             # Git ignore reeglid
 
-## How It Works
+**Kuidas see töötab**
 
-This tool uses [yt-dlp](https://github.com/yt-dlp/yt-dlp), a powerful fork of youtube-dl, to:
-1. Extract media URLs from various platforms
-2. Download the best available quality
-3. Convert audio to your preferred format using FFmpeg
-4. Save files with clean, organized names
+See tööriist kasutab yt-dlp, mis:
+                                  Ekstraheerib meedia URL-id erinevatelt platvormidelt
+                                  Laadib alla parima saadaoleva kvaliteediga
+                                  Konverteerib heli sinu eelistatud formaati FFmpegi abil
+                                  Salvestab failid puhaste ja korrastatud nimedega
 
-## Troubleshooting
+**Tõrkeotsing**
+“FFmpeg not found”
 
-### "FFmpeg not found"
-Install FFmpeg using the instructions in the Prerequisites section.
+Paigalda FFmpeg vastavalt juhistele jaotises Eeldused.
 
-### "ERROR: Unsupported URL"
-Check if the platform is supported by visiting the [yt-dlp supported sites list](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md).
+“ERROR: Unsupported URL”
 
-### Downloads are slow
-This depends on your internet connection and the source platform. yt-dlp optimizes download speeds automatically.
+Kontrolli, kas platvorm on toetatud, vaadates yt-dlp toetatud saitide nimekirja
+.
 
-## Legal Notice
+Allalaadimised on aeglased
 
-This tool is for personal use only. Please respect copyright laws and terms of service of the platforms you download from. Only download content you have the right to download.
+See sõltub sinu internetiühendusest ja allikaplatvormist. yt-dlp optimeerib allalaadimiskiirust automaatselt.
 
-## Contributing
+Juriidiline märkus
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+See tööriist on mõeldud ainult isiklikuks kasutuseks. Palun austa autoriõigusi ja platvormide kasutustingimusi. Laadi alla ainult sisu, mille allalaadimiseks sul on õigus.
 
-## License
+Panustamine
 
-MIT License - feel free to use this tool for personal projects.
+Panused on teretulnud! Esita julgelt Pull Request.
 
-## Acknowledgments
+Litsents
 
-- [yt-dlp](https://github.com/yt-dlp/yt-dlp) - The amazing downloader engine
-- [FFmpeg](https://ffmpeg.org/) - For media conversion
+MIT-litsents — kasuta vabalt oma projektides.
 
-## Support
+Tänusõnad
 
-If you encounter any issues, please open an issue on GitHub.
+yt-dlp
+ — suurepärane allalaadimismootor
+
+FFmpeg
+ — meediakonverteerimiseks
+
+Tugi
+
+Kui tekib probleeme, palun ava GitHubis issue.
