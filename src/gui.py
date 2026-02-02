@@ -37,6 +37,81 @@ class MediaDownloaderGUI:
         
         self.setup_ui()
         
+    def create_context_menu(self, widget):
+        """Create a right-click context menu for an Entry widget"""
+        context_menu = tk.Menu(widget, tearoff=0)
+        
+        context_menu.add_command(
+            label="Lõika",
+            command=lambda: self.cut_text(widget),
+            accelerator="Ctrl+X"
+        )
+        context_menu.add_command(
+            label="Kopeeri",
+            command=lambda: self.copy_text(widget),
+            accelerator="Ctrl+C"
+        )
+        context_menu.add_command(
+            label="Kleebi",
+            command=lambda: self.paste_text(widget),
+            accelerator="Ctrl+V"
+        )
+        context_menu.add_separator()
+        context_menu.add_command(
+            label="Vali kõik",
+            command=lambda: self.select_all(widget),
+            accelerator="Ctrl+A"
+        )
+        
+        def show_context_menu(event):
+            """Show context menu on right-click"""
+            try:
+                context_menu.tk_popup(event.x_root, event.y_root)
+            finally:
+                context_menu.grab_release()
+        
+        # Bind right-click to show menu
+        widget.bind("<Button-3>", show_context_menu)
+        
+        # Also bind keyboard shortcuts
+        widget.bind("<Control-x>", lambda e: self.cut_text(widget))
+        widget.bind("<Control-c>", lambda e: self.copy_text(widget))
+        widget.bind("<Control-v>", lambda e: self.paste_text(widget))
+        widget.bind("<Control-a>", lambda e: self.select_all(widget))
+        
+        return context_menu
+    
+    def cut_text(self, widget):
+        """Cut selected text from widget"""
+        try:
+            if widget.selection_present():
+                widget.event_generate("<<Cut>>")
+        except tk.TclError:
+            pass
+    
+    def copy_text(self, widget):
+        """Copy selected text from widget"""
+        try:
+            if widget.selection_present():
+                widget.event_generate("<<Copy>>")
+        except tk.TclError:
+            pass
+    
+    def paste_text(self, widget):
+        """Paste text into widget"""
+        try:
+            widget.event_generate("<<Paste>>")
+        except tk.TclError:
+            pass
+    
+    def select_all(self, widget):
+        """Select all text in widget"""
+        try:
+            widget.select_range(0, tk.END)
+            widget.icursor(tk.END)
+        except tk.TclError:
+            pass
+        
     def setup_ui(self):
         """Setup the user interface"""
         
@@ -89,6 +164,9 @@ class MediaDownloaderGUI:
         )
         url_entry.pack(fill=tk.X, pady=(0, 15))
         url_entry.focus()
+        
+        # Add context menu to URL entry
+        self.create_context_menu(url_entry)
         
         # Download Type Selection
         type_label = tk.Label(
@@ -184,13 +262,16 @@ class MediaDownloaderGUI:
             output_frame, 
             textvariable=self.output_var, 
             font=("Segoe UI", 9), 
-            state="readonly",
+            state="normal",  # Changed from readonly to allow copy
             bg="#ffffff",
             fg="#2c2c2c",
             relief=tk.SOLID,
             borderwidth=1
         )
         output_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 10))
+        
+        # Add context menu to output entry (even though it's readonly, copy is still useful)
+        self.create_context_menu(output_entry)
         
         browse_btn = tk.Button(
             output_frame,
